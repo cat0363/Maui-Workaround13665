@@ -46,8 +46,6 @@ namespace Maui_Workaround13665.Platforms.Android
                 platformView.KeyListener = null;
                 // Set Custom Selection Action Mode Callback
                 platformView.CustomSelectionActionModeCallback = new CustomSelectionActionModeCallback();
-                // Hide Soft Input Focus
-                platformView.ShowSoftInputOnFocus = false;
             }
             else 
             {
@@ -55,8 +53,6 @@ namespace Maui_Workaround13665.Platforms.Android
                 platformView.KeyListener = ((CustomEditorHandler)virtualView.Handler).KeyListener;
                 // Resetting Custom Selection Action Mode Callback
                 platformView.CustomSelectionActionModeCallback = ((CustomEditorHandler)virtualView.Handler).CustomSelectionActionModeCallback;
-                // Show Soft Input Focus
-                platformView.ShowSoftInputOnFocus = true;
             }
         }
 
