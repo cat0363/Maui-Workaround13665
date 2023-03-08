@@ -1,5 +1,6 @@
 ﻿using Android.Text.Method;
 using Android.Views;
+using Android.Views.InputMethods;
 using AndroidX.AppCompat.Widget;
 using Microsoft.Maui.Handlers;
 using System;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Android.Resource;
+using static Android.Views.View;
 
 namespace Maui_Workaround13665.Platforms.Android 
 {
@@ -82,6 +84,60 @@ namespace Maui_Workaround13665.Platforms.Android
             platformView.SetTextIsSelectable(true);
 
             return platformView;
+        }
+
+        /// <summary>
+        /// Connect Handler
+        /// </summary>
+        /// <param name="platformView">Platform View</param>
+        protected override void ConnectHandler(AppCompatEditText platformView) 
+        {
+            // Add Focus Change Event Handler
+            platformView.FocusChange += new EventHandler<FocusChangeEventArgs>(pv_FocusChange);
+            base.ConnectHandler(platformView);
+        }
+        /// <summary>
+        /// Disconnect Handler
+        /// </summary>
+        /// <param name="platformView">Platform VIew</param>
+        protected override void DisconnectHandler(AppCompatEditText platformView) 
+        {
+            // Remove Focus Change Event Handler
+            platformView.FocusChange -= new EventHandler<FocusChangeEventArgs>(pv_FocusChange);
+            base.DisconnectHandler(platformView);
+        }
+
+        /// <summary>
+        /// Focus Change
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Focus Changed Event Args</param>
+        private void pv_FocusChange(object sender, FocusChangeEventArgs e) {
+
+            if (e.HasFocus) 
+            {
+                if (!VirtualView.IsReadOnly) 
+                {
+                    // Create Input Method Manager
+                    InputMethodManager inputMethodManager = (InputMethodManager)global::Android.App.Application.Context.GetSystemService(global::Android.Content.Context.InputMethodService);
+                    // Show Software Keyboard
+                    inputMethodManager.ShowSoftInput(PlatformView, ShowFlags.Forced);
+                }
+                else 
+                {
+                    // Create Input Method Manager
+                    InputMethodManager inputMethodManager = (InputMethodManager)global::Android.App.Application.Context.GetSystemService(global::Android.Content.Context.InputMethodService);
+                    // Show Software Keyboard
+                    inputMethodManager.HideSoftInputFromWindow(PlatformView.WindowToken, HideSoftInputFlags.None);
+                }
+            }
+            else 
+            {
+                // Create Input Method Manager
+                InputMethodManager inputMethodManager = (InputMethodManager)global::Android.App.Application.Context.GetSystemService(global::Android.Content.Context.InputMethodService);
+                // Hide Software Keyboard
+                inputMethodManager.HideSoftInputFromWindow(PlatformView.WindowToken, HideSoftInputFlags.None);
+            }
         }
     }
 
