@@ -127,7 +127,7 @@ namespace Maui_Workaround13665.Platforms.Android
                 {
                     // Create Input Method Manager
                     InputMethodManager inputMethodManager = (InputMethodManager)global::Android.App.Application.Context.GetSystemService(global::Android.Content.Context.InputMethodService);
-                    // Show Software Keyboard
+                    // Hide Software Keyboard
                     inputMethodManager.HideSoftInputFromWindow(PlatformView.WindowToken, HideSoftInputFlags.None);
                 }
             }
