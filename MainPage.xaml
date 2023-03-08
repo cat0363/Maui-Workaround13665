@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Maui_Workaround13665.MainPage">
+
+    <Grid RowDefinitions="20,100,20,100,*">
+        <Label Grid.Row="0" Text="IsReadOnly : True" VerticalOptions="Center" />
+        <Editor Grid.Row="1" IsReadOnly="True" Text="Apple&#xa;Orange&#xa;Lime&#xa;Lemon&#xa;Cherry&#xa;Raisin" />
+        <Label Grid.Row="2" Text="IsReadOnly : False" VerticalOptions="Center" />
+        <Editor Grid.Row="3" IsReadOnly="False" Text="" />
+    </Grid>
+    
+</ContentPage>
